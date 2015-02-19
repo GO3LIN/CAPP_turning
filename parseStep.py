@@ -439,10 +439,11 @@ def process_direction(stepLine):
 	di.stepLine = stepLine
 	return di
 
-def searchLineStartsWith(str):
+def searchLineStartsWith(string):
 	global step_lines
+	string += '='
 	for step_line in step_lines:
-		if(step_line.startswith(str)):
+		if(step_line.startswith(string)):
 			return step_line			
 
 def getLabelFromStepLine(stepLine):

@@ -10,6 +10,7 @@ from OCC.Quantity import Quantity_Color
 
 from first import Ui_Form
 import config_control_design as stepCode
+import recognition
 
 class Main(QtGui.QWidget, Ui_Form):
     def __init__(self, parent=None):
@@ -20,12 +21,15 @@ class Main(QtGui.QWidget, Ui_Form):
         self.ui.setupUi(self)
         self.aResShape = None
         self.aResStock = None
+        self.closed_s = None
         self.stock = stepCode.closed_shell
         self.stock.points = []
+        self.stock.sd = 0.0
         self.ui.importButton.clicked.connect(self.importClicked)
         self.ui.separateButton.clicked.connect(self.separateClicked)
         self.ui.stockButton.clicked.connect(self.stockClicked)
         self.ui.checkMButton.clicked.connect(self.checkMClicked)
+        self.ui.recognitionButton.clicked.connect(self.recognitionClicked)
         #w = self.ui.tabWidget_2.widget(0)
         self.ui.viewer = OCC.Display.pyqt4Display.qtViewer3d(self.ui.view3d)
         self.ui.stockViewer = OCC.Display.pyqt4Display.qtViewer3d(self.ui.stockView)
@@ -45,6 +49,10 @@ class Main(QtGui.QWidget, Ui_Form):
         vpos = ( screen.height() - mysize.height() - mysize.height() ) / 2
         self.move(hpos, vpos)
 
+    def recognitionClicked(self):
+        if(self.closed_s == None):
+            self.closed_s = parseStep.readStep(self.currentStep)
+        recognition.recognition(self.closed_s, self.stock)
     
     def checkMClicked(self):
        # print self.aResShape[0].Location().IsEqual(self.aResShape[1].Location())
@@ -76,7 +84,7 @@ class Main(QtGui.QWidget, Ui_Form):
 
 
     def separateClicked(self):
-        closed_s = parseStep.readStep(self.currentStep)
+        self.closed_s = parseStep.readStep(self.currentStep)
         self.ui.gtdText.setText(str(parseStep.printStep(closed_s)))
 
     def drawStock(self, stepFile):
@@ -150,4 +158,5 @@ if __name__ == "__main__":
     window.ui.viewer.InitDriver()
     window.ui.stockViewer.InitDriver()
     window.ui.deltaViewer.InitDriver()
+
     sys.exit(app.exec_())

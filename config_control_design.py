@@ -5375,6 +5375,25 @@ class closed_shell(connected_face_set):
 	'''
 	def __init__( self , inherited0__name , inherited1__cfs_faces ,  ):
 		connected_face_set.__init__(self , inherited0__name , inherited1__cfs_faces , )
+	''' Function getSurfaceType
+	@param: type face_geometry type
+	@return: list of face_geometry objects that are of a defined type
+	'''
+	def getSurfaceType(self, face_geometry_type):
+		ret = []
+		for af in self.cfs_faces:
+			if(isinstance(af.face_geometry, face_geometry_type)):
+				ret.append(af.face_geometry)
+		return ret
+
+	def getAdvancedFacesFromSurfaceType(self, surface_type):
+		ret = []
+		for af in self.cfs_faces:
+			if(af.face_geometry.stepLine==surface_type.stepLine):
+				ret.append(af)
+		return ret
+
+
 
 ####################
  # ENTITY application_protocol_definition #
@@ -10734,6 +10753,14 @@ class advanced_face(face_surface):
 			raise AssertionError('Rule wr1 violated')
 		else:
 			return eval_wr1_wr
+
+	def getEdgeType(self, edgeType):
+		ret = []
+		for fb in self.bounds:
+			for oe in fb.bound.edge_list:
+				if(isinstance(oe.edge_element.edge_geometry, edgeType)):
+					ret.append(oe.edge_element.edge_geometry)
+		return ret
 
 	'''
 	def getAdvancedFacesThatShareEdgeCurve(self, closed_shell):

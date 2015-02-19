@@ -18,7 +18,7 @@
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0,1,0,0">
+    <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0,1,0,0,0">
      <property name="sizeConstraint">
       <enum>QLayout::SetMaximumSize</enum>
      </property>
@@ -66,6 +66,13 @@
       <widget class="QPushButton" name="checkMButton">
        <property name="text">
         <string>Calculate DeltaVolume</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="recognitionButton">
+       <property name="text">
+        <string>Start recognition</string>
        </property>
       </widget>
      </item>

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'first.ui'
 #
-# Created: Mon Feb 16 15:56:49 2015
+# Created: Wed Feb 18 23:37:31 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -48,6 +48,9 @@ class Ui_Form(object):
         self.checkMButton = QtGui.QPushButton(Form)
         self.checkMButton.setObjectName(_fromUtf8("checkMButton"))
         self.verticalLayout_2.addWidget(self.checkMButton)
+        self.recognitionButton = QtGui.QPushButton(Form)
+        self.recognitionButton.setObjectName(_fromUtf8("recognitionButton"))
+        self.verticalLayout_2.addWidget(self.recognitionButton)
         spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem1)
         self.verticalLayout_2.setStretch(3, 1)
@@ -156,6 +159,7 @@ class Ui_Form(object):
         self.stockButton.setText(_translate("Form", "Import a stock STEP file", None))
         self.separateButton.setText(_translate("Form", "Separate and print GTD", None))
         self.checkMButton.setText(_translate("Form", "Calculate DeltaVolume", None))
+        self.recognitionButton.setText(_translate("Form", "Start recognition", None))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_4), _translate("Form", "3D View", None))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_5), _translate("Form", "STEP", None))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab), _translate("Form", "Geometric and Topological Data", None))
