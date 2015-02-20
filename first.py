@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'first.ui'
 #
-# Created: Wed Feb 18 23:37:31 2015
+# Created: Fri Feb 20 00:27:22 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -51,6 +51,10 @@ class Ui_Form(object):
         self.recognitionButton = QtGui.QPushButton(Form)
         self.recognitionButton.setObjectName(_fromUtf8("recognitionButton"))
         self.verticalLayout_2.addWidget(self.recognitionButton)
+        self.recoCylinder = QtGui.QLabel(Form)
+        self.recoCylinder.setText(_fromUtf8(""))
+        self.recoCylinder.setObjectName(_fromUtf8("recoCylinder"))
+        self.verticalLayout_2.addWidget(self.recoCylinder)
         spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem1)
         self.verticalLayout_2.setStretch(3, 1)
@@ -136,16 +140,6 @@ class Ui_Form(object):
         self.verticalLayout_4.addWidget(self.tabWidget_2)
         self.treeWidget = QtGui.QTreeWidget(Form)
         self.treeWidget.setObjectName(_fromUtf8("treeWidget"))
-        item_0 = QtGui.QTreeWidgetItem(self.treeWidget)
-        item_0 = QtGui.QTreeWidgetItem(self.treeWidget)
-        item_1 = QtGui.QTreeWidgetItem(item_0)
-        item_2 = QtGui.QTreeWidgetItem(item_1)
-        item_3 = QtGui.QTreeWidgetItem(item_2)
-        item_3 = QtGui.QTreeWidgetItem(item_2)
-        item_3 = QtGui.QTreeWidgetItem(item_2)
-        item_3 = QtGui.QTreeWidgetItem(item_2)
-        item_3 = QtGui.QTreeWidgetItem(item_2)
-        item_0 = QtGui.QTreeWidgetItem(self.treeWidget)
         self.verticalLayout_4.addWidget(self.treeWidget)
         self.horizontalLayout.addLayout(self.verticalLayout_4)
 
@@ -167,23 +161,5 @@ class Ui_Form(object):
         self.stockSL.setText(_translate("Form", "Stock Length SL =", None))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_2), _translate("Form", "Stock", None))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_3), _translate("Form", "DeltaVolume", None))
-        self.treeWidget.headerItem().setText(0, _translate("Form", "1", None))
-        self.treeWidget.headerItem().setText(1, _translate("Form", "New Column", None))
-        self.treeWidget.headerItem().setText(2, _translate("Form", "New Column", None))
-        __sortingEnabled = self.treeWidget.isSortingEnabled()
-        self.treeWidget.setSortingEnabled(False)
-        self.treeWidget.topLevelItem(0).setText(0, _translate("Form", "New Item", None))
-        self.treeWidget.topLevelItem(1).setText(0, _translate("Form", "New Item", None))
-        self.treeWidget.topLevelItem(1).child(0).setText(0, _translate("Form", "New Subitem", None))
-        self.treeWidget.topLevelItem(1).child(0).child(0).setText(0, _translate("Form", "New Subitem", None))
-        self.treeWidget.topLevelItem(1).child(0).child(0).child(0).setText(0, _translate("Form", "New Subitem", None))
-        self.treeWidget.topLevelItem(1).child(0).child(0).child(1).setText(0, _translate("Form", "New Item", None))
-        self.treeWidget.topLevelItem(1).child(0).child(0).child(1).setText(1, _translate("Form", "hgff", None))
-        self.treeWidget.topLevelItem(1).child(0).child(0).child(2).setText(0, _translate("Form", "New Item", None))
-        self.treeWidget.topLevelItem(1).child(0).child(0).child(2).setText(1, _translate("Form", "jyhrhgdfvd", None))
-        self.treeWidget.topLevelItem(1).child(0).child(0).child(2).setText(2, _translate("Form", "gfedcscdz\"rez", None))
-        self.treeWidget.topLevelItem(1).child(0).child(0).child(3).setText(0, _translate("Form", "New Item", None))
-        self.treeWidget.topLevelItem(1).child(0).child(0).child(4).setText(0, _translate("Form", "New Item", None))
-        self.treeWidget.topLevelItem(2).setText(0, _translate("Form", "New Item", None))
-        self.treeWidget.setSortingEnabled(__sortingEnabled)
+        self.treeWidget.headerItem().setText(0, _translate("Form", "Recognition results", None))
 

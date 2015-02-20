@@ -18,7 +18,7 @@
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0,1,0,0,0">
+    <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0,1,0,0,0,0">
      <property name="sizeConstraint">
       <enum>QLayout::SetMaximumSize</enum>
      </property>
@@ -73,6 +73,13 @@
       <widget class="QPushButton" name="recognitionButton">
        <property name="text">
         <string>Start recognition</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="recoCylinder">
+       <property name="text">
+        <string/>
        </property>
       </widget>
      </item>
@@ -238,90 +245,9 @@
       <widget class="QTreeWidget" name="treeWidget">
        <column>
         <property name="text">
-         <string>1</string>
+         <string>Recognition results</string>
         </property>
        </column>
-       <column>
-        <property name="text">
-         <string>New Column</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>New Column</string>
-        </property>
-       </column>
-       <item>
-        <property name="text">
-         <string>New Item</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>New Item</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>New Subitem</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <item>
-          <property name="text">
-           <string>New Subitem</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <item>
-           <property name="text">
-            <string>New Subitem</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>New Item</string>
-           </property>
-           <property name="text">
-            <string>hgff</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>New Item</string>
-           </property>
-           <property name="text">
-            <string>jyhrhgdfvd</string>
-           </property>
-           <property name="text">
-            <string>gfedcscdz&quot;rez</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>New Item</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>New Item</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </item>
-         </item>
-        </item>
-       </item>
-       <item>
-        <property name="text">
-         <string>New Item</string>
-        </property>
-       </item>
       </widget>
      </item>
     </layout>

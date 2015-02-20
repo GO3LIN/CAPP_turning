@@ -10,6 +10,7 @@ from OCC.Quantity import Quantity_Color
 
 from first import Ui_Form
 import config_control_design as stepCode
+import cylinderRecognition
 import recognition
 
 class Main(QtGui.QWidget, Ui_Form):
@@ -42,6 +43,9 @@ class Main(QtGui.QWidget, Ui_Form):
         la3 = QtGui.QVBoxLayout(self.ui.deltaView)
         la3.addWidget(self.ui.deltaViewer)
 
+        #Tree Widget
+        
+
         # Place the widget in the center of the screen
         screen = QtGui.QDesktopWidget().screenGeometry()
         mysize = self.geometry()
@@ -52,7 +56,30 @@ class Main(QtGui.QWidget, Ui_Form):
     def recognitionClicked(self):
         if(self.closed_s == None):
             self.closed_s = parseStep.readStep(self.currentStep)
-        recognition.recognition(self.closed_s, self.stock)
+        reco = recognition.recognition(self.closed_s, self.stock)
+        reco_res = reco.process()
+        #self.ui.recoCylinder.setText(str(reco_res.max_diameter))
+        
+        self.ui.treeWidget.clear()
+
+        cylinder_feature = QtGui.QTreeWidgetItem(self.ui.treeWidget)
+        cylinder_feature.setText(0, 'Cylinder Feature')
+        items = []
+
+        if(reco_res.max_diameter==0):
+            item = QtGui.QTreeWidgetItem(cylinder_feature)
+            item.setText(0, 'No cylinder feature found.')
+            items.append(item)
+        else:
+            item = QtGui.QTreeWidgetItem(cylinder_feature)
+            item.setText(0, 'Max diameter: '+str(reco_res.max_diameter)+'mm')
+            items.append(item)
+            for af in reco_res.advanced_faces:
+                item = QtGui.QTreeWidgetItem(cylinder_feature)
+                item.setText(0, af.stepLine)
+                items.append(item)
+        self.ui.treeWidget.addTopLevelItems(items)
+        
     
     def checkMClicked(self):
        # print self.aResShape[0].Location().IsEqual(self.aResShape[1].Location())
@@ -85,7 +112,7 @@ class Main(QtGui.QWidget, Ui_Form):
 
     def separateClicked(self):
         self.closed_s = parseStep.readStep(self.currentStep)
-        self.ui.gtdText.setText(str(parseStep.printStep(closed_s)))
+        self.ui.gtdText.setText(str(parseStep.printStep(self.closed_s)))
 
     def drawStock(self, stepFile):
         step_reader = STEPControl_Reader()
