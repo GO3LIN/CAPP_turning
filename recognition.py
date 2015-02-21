@@ -1,23 +1,22 @@
 import config_control_design as stepCode
 import collections
 import cylinderRecognition
+import faceRecognition
 
 class recognition(object):
 
 	
 	def __init__(self, closed_s, stock):
 		# Recognition process start
-		self.max_diameter = 0.0
 		self.closed_s = closed_s
 		self.stock = stock
 		#cylinderRecognition(closed_s, stock)
-	def process(self):
-		return cylinderRecognition.cylinderRecognition(self.closed_s, self.stock)
-	def getStepFromObjects(self, objects):
-		ret = []
-		for cs in objects:
-			ret.append(cs.stepLine)
-		return ret
+	def process(self, feature_name):
+		results = {
+		'cylinder' : cylinderRecognition.cylinderRecognition,
+		'face' : faceRecognition.faceRecognition
+		}
+		return results[feature_name](self.closed_s, self.stock)
 
 	# def reco_cylinder(self, closed_s, stock):
 	# 	#print closed_s.stepLine

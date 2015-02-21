@@ -1,19 +1,20 @@
-import recognition
+import recognitionTools as r_tools
 import config_control_design as stepCode
 import collections
 
-class cylinderRecognition(recognition.recognition):
+class cylinderRecognition:
 
 	def __init__(self, closed_s, stock):
 		#reco.__init__(self, closed_s, stock)
-		super(cylinderRecognition, self).__init__(closed_s, stock)
+		self.closed_s = closed_s
+		self.stock = stock
 		self.max_diameter = 0.0
 		self.process(closed_s, stock)
 
 	def process(self, closed_s, stock):
 		#print closed_s.stepLine
 		c_surfaces = closed_s.getSurfaceType(stepCode.cylindrical_surface)
-		c_surfaces_step = self.getStepFromObjects(c_surfaces)
+		c_surfaces_step = r_tools.getStepFromObjects(c_surfaces)
 
 		# Find duplicate cylindrical surfaces
 		if len(c_surfaces_step) != len(set(c_surfaces_step)):
@@ -43,10 +44,10 @@ class cylinderRecognition(recognition.recognition):
 					if len(raf_lines)==2 and len(raf_circles) == 2:
 						af_lines += raf_lines
 				# 3rd Rule
-				if(len(af_lines)==4):
-					af_lines_step = self.getStepFromObjects(af_lines)
+				if(len(af_lines)%4==0):
+					af_lines_step = r_tools.getStepFromObjects(af_lines)
 					# 4th Rule
-					if(len(set(af_lines_step))==2):
+					if(len(set(af_lines_step))==(len(af_lines)/2)):
 						circles = closed_s.getEdgeType(stepCode.circle)
 						circles_max_radius = circles[0].radius
 						for circle in circles:
@@ -57,7 +58,13 @@ class cylinderRecognition(recognition.recognition):
 							print '---------- Cylinder feature found !'
 							self.max_diameter = max_diameter_cs.radius*2
 							self.advanced_faces = related_advanced_faces
-							print related_advanced_faces[0].stepLine
-							print related_advanced_faces[1].stepLine
+						else:
+							print 'circles_max_radius>max_radius'
+					else:
+						print 'Doesnt contain 2 duplicated lines'
+				else:
+					print 'Advances faces doesnt contain 4 lines'
+			else:
+				print 'sd>max_diameter'
 		else:
 			print "Nooo"

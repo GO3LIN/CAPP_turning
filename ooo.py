@@ -10,7 +10,6 @@ from OCC.Quantity import Quantity_Color
 
 from first import Ui_Form
 import config_control_design as stepCode
-import cylinderRecognition
 import recognition
 
 class Main(QtGui.QWidget, Ui_Form):
@@ -57,24 +56,50 @@ class Main(QtGui.QWidget, Ui_Form):
         if(self.closed_s == None):
             self.closed_s = parseStep.readStep(self.currentStep)
         reco = recognition.recognition(self.closed_s, self.stock)
-        reco_res = reco.process()
-        #self.ui.recoCylinder.setText(str(reco_res.max_diameter))
-        
-        self.ui.treeWidget.clear()
+        cylinder_res = reco.process('cylinder')
+        face_res = reco.process('face')
 
+        #self.ui.recoCylinder.setText(str(reco_res.max_diameter))
+        self.ui.treeWidget.clear()
+        self.fillTreeCylinderFeature(cylinder_res)
+        self.fillTreeFaceFeature(face_res)
+    def fillTreeFaceFeature(self, results):
+        face_feature = QtGui.QTreeWidgetItem(self.ui.treeWidget)
+        face_feature.setText(0, 'Face Feature')
+        items = []
+
+        if(results.leftFound):
+            item = QtGui.QTreeWidgetItem(face_feature)
+            item.setText(0, 'Left y coordinate: '+str(results.vp_min_y))
+            items.append(item)
+            for af in results.min_af_list:
+                item = QtGui.QTreeWidgetItem(face_feature)
+                item.setText(0, af.stepLine)
+                items.append(item)
+        if(results.rightFound):
+            item = QtGui.QTreeWidgetItem(face_feature)
+            item.setText(0, 'Right y coordinate: '+str(results.vp_max_y))
+            items.append(item)
+            for af in results.max_af_list:
+                item = QtGui.QTreeWidgetItem(face_feature)
+                item.setText(0, af.stepLine)
+                items.append(item)
+        self.ui.treeWidget.addTopLevelItems(items)
+
+    def fillTreeCylinderFeature(self, results):
         cylinder_feature = QtGui.QTreeWidgetItem(self.ui.treeWidget)
         cylinder_feature.setText(0, 'Cylinder Feature')
         items = []
 
-        if(reco_res.max_diameter==0):
+        if(results.max_diameter==0):
             item = QtGui.QTreeWidgetItem(cylinder_feature)
             item.setText(0, 'No cylinder feature found.')
             items.append(item)
         else:
             item = QtGui.QTreeWidgetItem(cylinder_feature)
-            item.setText(0, 'Max diameter: '+str(reco_res.max_diameter)+'mm')
+            item.setText(0, 'Max diameter: '+str(results.max_diameter)+'mm')
             items.append(item)
-            for af in reco_res.advanced_faces:
+            for af in results.advanced_faces:
                 item = QtGui.QTreeWidgetItem(cylinder_feature)
                 item.setText(0, af.stepLine)
                 items.append(item)

@@ -5393,7 +5393,27 @@ class closed_shell(connected_face_set):
 				for oe in fb.bound.edge_list:
 					if(isinstance(oe.edge_element.edge_geometry, edge_t)):
 						ret.append(oe.edge_element.edge_geometry)
+		return ret	
+	def getVertexPoints(self):
+		ret=[]
+		for af in self.cfs_faces:
+			for fb in af.bounds:
+				for oe in fb.bound.edge_list:
+					ret.append(oe.edge_element.edge_start)
+					ret.append(oe.edge_element.edge_end)
 		return ret
+
+	def getAdvancedFaceFromVertexPoint(self, vp):
+		for  af in self.cfs_faces:
+			for fb in af.bounds:
+				for oe in fb.bound.edge_list:
+					if(oe.edge_element.edge_start == vp or oe.edge_element.edge_end == vp):
+						return af
+		return None
+	def getSurfaceTypeFromVertexPoint(self, vp):
+		vp_af = self.getAdvancedFaceFromVertexPoint(vp)
+		return vp_af.face_geometry
+
 
 	def getAdvancedFacesFromSurfaceType(self, surface_type):
 		ret = []
