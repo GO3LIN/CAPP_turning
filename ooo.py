@@ -1,4 +1,6 @@
 import sys
+import os
+import subprocess
 from OCC.BRepAlgoAPI import BRepAlgoAPI_Cut
 from PyQt4 import QtCore, QtGui
 import OCC.Display.pyqt4Display
@@ -30,6 +32,7 @@ class Main(QtGui.QWidget, Ui_Form):
         self.ui.stockButton.clicked.connect(self.stockClicked)
         self.ui.checkMButton.clicked.connect(self.checkMClicked)
         self.ui.recognitionButton.clicked.connect(self.recognitionClicked)
+        self.ui.clearButton.clicked.connect(self.clearClicked)
         #w = self.ui.tabWidget_2.widget(0)
         self.ui.viewer = OCC.Display.pyqt4Display.qtViewer3d(self.ui.view3d)
         self.ui.stockViewer = OCC.Display.pyqt4Display.qtViewer3d(self.ui.stockView)
@@ -133,7 +136,9 @@ class Main(QtGui.QWidget, Ui_Form):
         self.ui.stockViewer._display.EraseAll()
         self.drawStock(fili)
 
-
+    def clearClicked(self):
+        subprocess.Popen(['python',os.getcwd()+os.path.sep+'ooo.py'])
+        sys.exit(0)
 
     def separateClicked(self):
         self.closed_s = parseStep.readStep(self.currentStep)

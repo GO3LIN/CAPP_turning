@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'first.ui'
 #
-# Created: Fri Feb 20 00:27:22 2015
+# Created: Sat Feb 21 02:11:12 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -51,10 +51,9 @@ class Ui_Form(object):
         self.recognitionButton = QtGui.QPushButton(Form)
         self.recognitionButton.setObjectName(_fromUtf8("recognitionButton"))
         self.verticalLayout_2.addWidget(self.recognitionButton)
-        self.recoCylinder = QtGui.QLabel(Form)
-        self.recoCylinder.setText(_fromUtf8(""))
-        self.recoCylinder.setObjectName(_fromUtf8("recoCylinder"))
-        self.verticalLayout_2.addWidget(self.recoCylinder)
+        self.clearButton = QtGui.QPushButton(Form)
+        self.clearButton.setObjectName(_fromUtf8("clearButton"))
+        self.verticalLayout_2.addWidget(self.clearButton)
         spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem1)
         self.verticalLayout_2.setStretch(3, 1)
@@ -144,7 +143,7 @@ class Ui_Form(object):
         self.horizontalLayout.addLayout(self.verticalLayout_4)
 
         self.retranslateUi(Form)
-        self.tabWidget_2.setCurrentIndex(0)
+        self.tabWidget_2.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -154,6 +153,7 @@ class Ui_Form(object):
         self.separateButton.setText(_translate("Form", "Separate and print GTD", None))
         self.checkMButton.setText(_translate("Form", "Calculate DeltaVolume", None))
         self.recognitionButton.setText(_translate("Form", "Start recognition", None))
+        self.clearButton.setText(_translate("Form", "Clear", None))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_4), _translate("Form", "3D View", None))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_5), _translate("Form", "STEP", None))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab), _translate("Form", "Geometric and Topological Data", None))

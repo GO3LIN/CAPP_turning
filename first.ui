@@ -77,9 +77,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="recoCylinder">
+      <widget class="QPushButton" name="clearButton">
        <property name="text">
-        <string/>
+        <string>Clear</string>
        </property>
       </widget>
      </item>
@@ -115,7 +115,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tab_4">
         <attribute name="title">
