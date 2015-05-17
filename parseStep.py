@@ -181,7 +181,7 @@ def process_edge_curve(stepLine):
 def process_line(stepLine):
 	line_name = getLabelFromStepLine(stepLine)
 	start = stepLine.find("',")+2
-	end = stepLine.find(') ;')
+	end = stepLine.rfind(')')
 	params = stepLine[start:end].split(',')
 	line_pnt = process_cartesian_point(searchLineStartsWith(params[0]))
 	line_dir = process_vector(searchLineStartsWith(params[1]))
@@ -193,7 +193,7 @@ def process_line(stepLine):
 def process_circle(stepLine):
 	circle_name = getLabelFromStepLine(stepLine)
 	start = stepLine.find("',")+2
-	end = stepLine.find(') ;');
+	end = stepLine.rfind(')')
 	params = stepLine[start:end].split(',')
 	circle_position = process_axis2p3d(searchLineStartsWith(params[0]))
 	circle_radius = stepCode.positive_length_measure(params[1])
@@ -204,7 +204,7 @@ def process_circle(stepLine):
 def process_ellipse(stepLine):
 	ellipse_name = getLabelFromStepLine(stepLine)
 	start = stepLine.find("',")+2
-	end = stepLine.find(') ;')
+	end = stepLine.rfind(')')
 	params = stepLine[start:end]
 	ellipse_position = process_axis2p3d(searchLineStartsWith(params[0]))
 	ellipse_semi_axis_1 = stepCode.positive_length_measure(params[1])
@@ -217,7 +217,7 @@ def process_ellipse(stepLine):
 def process_vector(stepLine):
 	vector_name = getLabelFromStepLine(stepLine)
 	start = stepLine.find("',")+2
-	end = stepLine.find(') ;')
+	end = stepLine.rfind(')')
 	params = stepLine[start:end].split(',')
 	vector_orientation = process_direction(searchLineStartsWith(params[0]))
 	vector_magnitude = stepCode.length_measure(params[1])
@@ -256,7 +256,7 @@ def process_cfs_fg(stepLine):
 def process_plane(stepLine):
 	plane_name = getLabelFromStepLine(stepLine)
 	start = stepLine.find("',")+2
-	end = stepLine.find(') ;')
+	end = stepLine.rfind(')')
 	axis_line = searchLineStartsWith(stepLine[start:end])
 	plane_axis = process_axis2p3d(axis_line)
 	pl = stepCode.plane(plane_name, plane_axis)
@@ -267,7 +267,7 @@ def process_plane(stepLine):
 def process_cylindrical_surface(stepLine):
 	cs_name = getLabelFromStepLine(stepLine)
 	start = stepLine.find("',")+2
-	end = stepLine.find(') ;')
+	end = stepLine.rfind(')')
 	params = stepLine[start:end].split(',')
 	cs_location_line = searchLineStartsWith(params[0])
 	cs_location = process_axis2p3d(cs_location_line)
@@ -279,7 +279,7 @@ def process_cylindrical_surface(stepLine):
 def process_conical_surface(stepLine):
 	cs_name = getLabelFromStepLine(stepLine)
 	start = stepLine.find("',")+2
-	end = stepLine.find(') ;')
+	end = stepLine.rfind(')')
 	params = stepLine[start:end].split(',')
 	cs_position_line = searchLineStartsWith(params[0])
 	cs_position = process_axis2p3d(cs_position_line)
@@ -292,7 +292,7 @@ def process_conical_surface(stepLine):
 def process_spherical_surface(stepLine):
 	ss_name = getLabelFromStepLine(stepLine)
 	start = stepLine.find("',")+2
-	end = stepLine.find(') ;')
+	end = stepLine.rfind(')')
 	params = stepLine[start:end].split(',')
 	ss_position = process_axis2p3d(searchLineStartsWith(params[0]))
 	ss_radius = stepCode.positive_length_measure(params[1])
@@ -304,7 +304,7 @@ def process_spherical_surface(stepLine):
 def process_toroidal_surface(stepLine):
 	ts_name = getLabelFromStepLine(stepLine)
 	start = stepLine.find("',")+2
-	end = stepLine.find(') ;')
+	end = stepLine.rfind(')')
 	params = stepLine[start:end].split(',')
 	ts_location = process_axis2p3d(searchLineStartsWith(params[0]))
 	ts_maj_radius = stepCode.positive_length_measure(params[1])
@@ -317,7 +317,7 @@ def process_toroidal_surface(stepLine):
 def process_sor(stepLine):
 	sor_name = getLabelFromStepLine(stepLine)
 	start = stepLine.find("',")+2
-	end = stepLine.find(') ;')
+	end = stepLine.rfind(')')
 	params = stepLine[start:end].split(',')
 	sor_swept_curve = process_bscwk(searchLineStartsWith(params[0]))
 	sor_axis_position = process_axis1p(searchLineStartsWith(params[1]))
@@ -389,7 +389,7 @@ def process_bscwk(stepLine):
 def process_axis1p(stepLine):
 	ax_name = getLabelFromStepLine(stepLine)
 	start = stepLine.find("',")+2
-	end = stepLine.find(') ;')
+	end = stepLine.rfind(')')
 	params = stepLine[start:end].split(',')
 	ax_location = process_cartesian_point(searchLineStartsWith(params[0]))
 	ax_axis = process_direction(searchLineStartsWith(params[1]))
@@ -400,7 +400,7 @@ def process_axis1p(stepLine):
 def process_axis2p3d(stepLine):
 	axis2p3d_name = getLabelFromStepLine(stepLine)
 	start = stepLine.find("',")+2
-	end = stepLine.find(') ;')
+	end = stepLine.rfind(')')
 	params = stepLine[start:end].split(',')
 	location_line = searchLineStartsWith(params[0])
 	axis_line = searchLineStartsWith(params[1])
@@ -447,6 +447,7 @@ def searchLineStartsWith(string):
 			return step_line			
 
 def getLabelFromStepLine(stepLine):
+	print stepLine
 	start = stepLine.find("('")+2
 	end = stepLine.find("',")
 	return stepLine[start:end]

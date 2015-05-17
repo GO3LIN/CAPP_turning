@@ -12,6 +12,7 @@ from OCC.Quantity import Quantity_Color
 
 from first import Ui_Form
 import config_control_design as stepCode
+import ap238_arm_schema as ap238
 import recognition
 
 class Main(QtGui.QWidget, Ui_Form):
@@ -27,12 +28,7 @@ class Main(QtGui.QWidget, Ui_Form):
         self.stock = stepCode.closed_shell
         self.stock.points = []
         self.stock.sd = 0.0
-        self.ui.importButton.clicked.connect(self.importClicked)
-        self.ui.separateButton.clicked.connect(self.separateClicked)
-        self.ui.stockButton.clicked.connect(self.stockClicked)
-        self.ui.checkMButton.clicked.connect(self.checkMClicked)
-        self.ui.recognitionButton.clicked.connect(self.recognitionClicked)
-        self.ui.clearButton.clicked.connect(self.clearClicked)
+        self.connections()
         #w = self.ui.tabWidget_2.widget(0)
         self.ui.viewer = OCC.Display.pyqt4Display.qtViewer3d(self.ui.view3d)
         self.ui.stockViewer = OCC.Display.pyqt4Display.qtViewer3d(self.ui.stockView)
@@ -52,8 +48,16 @@ class Main(QtGui.QWidget, Ui_Form):
         screen = QtGui.QDesktopWidget().screenGeometry()
         mysize = self.geometry()
         hpos = ( screen.width() - mysize.width() ) / 2
-        vpos = ( screen.height() - mysize.height() - mysize.height() ) / 2
+        vpos = ( screen.height() - mysize.height() ) / 2
         self.move(hpos, vpos)
+
+    def connections(self):
+        self.ui.importButton.clicked.connect(self.importClicked)
+        self.ui.separateButton.clicked.connect(self.separateClicked)
+        self.ui.stockButton.clicked.connect(self.stockClicked)
+        self.ui.checkMButton.clicked.connect(self.checkMClicked)
+        self.ui.recognitionButton.clicked.connect(self.recognitionClicked)
+        self.ui.clearButton.clicked.connect(self.clearClicked)
 
     def recognitionClicked(self):
         if(self.closed_s == None):
@@ -66,6 +70,7 @@ class Main(QtGui.QWidget, Ui_Form):
         self.ui.treeWidget.clear()
         self.fillTreeCylinderFeature(cylinder_res)
         self.fillTreeFaceFeature(face_res)
+
     def fillTreeFaceFeature(self, results):
         face_feature = QtGui.QTreeWidgetItem(self.ui.treeWidget)
         face_feature.setText(0, 'Face Feature')
@@ -108,7 +113,6 @@ class Main(QtGui.QWidget, Ui_Form):
                 items.append(item)
         self.ui.treeWidget.addTopLevelItems(items)
         
-    
     def checkMClicked(self):
        # print self.aResShape[0].Location().IsEqual(self.aResShape[1].Location())
         cutted = BRepAlgoAPI_Cut(self.aResStock, self.aResShape).Shape()
@@ -117,7 +121,6 @@ class Main(QtGui.QWidget, Ui_Form):
         self.ui.deltaViewer._display.DisplayShape(cutted, transparency=0.5, update=True)
         print cutted.IsNull()
         #print self.aResShape[0].IsEqual(self.aResShape[1])
-
 
     def stockClicked(self):
         fili = QtGui.QFileDialog.getOpenFileName(self, 'Open File')
@@ -142,6 +145,7 @@ class Main(QtGui.QWidget, Ui_Form):
 
     def separateClicked(self):
         self.closed_s = parseStep.readStep(self.currentStep)
+        #print self.closed_s
         self.ui.gtdText.setText(str(parseStep.printStep(self.closed_s)))
 
     def drawStock(self, stepFile):
@@ -170,24 +174,27 @@ class Main(QtGui.QWidget, Ui_Form):
         status = step_reader.ReadFile(str(stepFile))
          
         if status == IFSelect_RetDone:  # check status
-            failsonly = False
-            step_reader.PrintCheckLoad(failsonly, IFSelect_ItemsByEntity)
-            step_reader.PrintCheckTransfer(failsonly, IFSelect_ItemsByEntity)
+            try:
+                failsonly = False
+                step_reader.PrintCheckLoad(failsonly, IFSelect_ItemsByEntity)
+                step_reader.PrintCheckTransfer(failsonly, IFSelect_ItemsByEntity)
 
-            ok = step_reader.TransferRoot(1)
-            _nbs = step_reader.NbShapes()
-            shape = step_reader.Shape(1)
-            self.aResShape = shape
-            couleur = Quantity_Color()
-            Quantity_Color.Argb2color(00000,couleur)
+                ok = step_reader.TransferRoot(1)
+                _nbs = step_reader.NbShapes()
+                shape = step_reader.Shape(1)
+                self.aResShape = shape
+                couleur = Quantity_Color()
+                Quantity_Color.Argb2color(00000,couleur)
 
-            if different:
-                mat = Graphic3d_NOM_STEEL
-            else:
-                mat = None
+                if different:
+                    mat = Graphic3d_NOM_STEEL
+                else:
+                    mat = None 
             
-            self.ui.viewer._display.DisplayShape(shape, update=True, transparency=0.5, material=mat)
-            #self.modelTab._display.DisplayColoredShape(self.aResShape, update=True, color=couleur)
+                self.ui.viewer._display.DisplayShape(shape, update=True, transparency=0.5, material=mat)
+                #self.modelTab._display.DisplayColoredShape(self.aResShape, update=True, color=couleur)
+            except:
+                print("Format invalid.")
         else:
             print("Error: can't read file.")
             sys.exit(0)

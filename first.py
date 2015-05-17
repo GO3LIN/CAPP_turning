@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'first.ui'
 #
-# Created: Sat Feb 21 02:11:12 2015
+# Created: Sat Feb 21 02:27:10 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -143,7 +143,7 @@ class Ui_Form(object):
         self.horizontalLayout.addLayout(self.verticalLayout_4)
 
         self.retranslateUi(Form)
-        self.tabWidget_2.setCurrentIndex(1)
+        self.tabWidget_2.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):

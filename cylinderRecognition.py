@@ -1,5 +1,6 @@
 import recognitionTools as r_tools
 import config_control_design as stepCode
+import ap238_arm_schema as ap238
 import collections
 
 class cylinderRecognition:
@@ -56,6 +57,10 @@ class cylinderRecognition:
 						# 5th Rule 
 						if(circles_max_radius<=max_diameter_cs.radius):
 							print '---------- Cylinder feature found !'
+							wp = ap238.workpiece.__new__(ap238.workpiece)
+							operations = ap238.machining_operation.__new__(ap238.machining_operation)
+
+							ap238.outer_diameter('OD1', wp, set())
 							self.max_diameter = max_diameter_cs.radius*2
 							self.advanced_faces = related_advanced_faces
 						else:
