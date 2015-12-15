@@ -447,7 +447,7 @@ def searchLineStartsWith(string):
 			return step_line			
 
 def getLabelFromStepLine(stepLine):
-	print stepLine
+	#print stepLine
 	start = stepLine.find("('")+2
 	end = stepLine.find("',")
 	return stepLine[start:end]

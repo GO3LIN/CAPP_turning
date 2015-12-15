@@ -5422,6 +5422,13 @@ class closed_shell(connected_face_set):
 				ret.append(af)
 		return ret
 
+	def getAdvancedFacesFromStepSurfaceType(self, surface_type):
+		ret = []
+		for af in self.cfs_faces:
+			if(isinstance(af.face_geometry, surface_type)):
+				ret.append(af)
+		return ret
+
 
 
 ####################

@@ -78,7 +78,7 @@ class Main(QtGui.QWidget, Ui_Form):
 
         if(results.leftFound):
             item = QtGui.QTreeWidgetItem(face_feature)
-            item.setText(0, 'Left y coordinate: '+str(results.vp_min_y))
+            item.setText(0, 'Left y coordinate: '+str(results.vp_min_z))
             items.append(item)
             for af in results.min_af_list:
                 item = QtGui.QTreeWidgetItem(face_feature)
@@ -86,7 +86,7 @@ class Main(QtGui.QWidget, Ui_Form):
                 items.append(item)
         if(results.rightFound):
             item = QtGui.QTreeWidgetItem(face_feature)
-            item.setText(0, 'Right y coordinate: '+str(results.vp_max_y))
+            item.setText(0, 'Right y coordinate: '+str(results.vp_max_z))
             items.append(item)
             for af in results.max_af_list:
                 item = QtGui.QTreeWidgetItem(face_feature)
@@ -99,18 +99,19 @@ class Main(QtGui.QWidget, Ui_Form):
         cylinder_feature.setText(0, 'Cylinder Feature')
         items = []
 
-        if(results.max_diameter==0):
+        if(len(results.foundFeatures)==0):
             item = QtGui.QTreeWidgetItem(cylinder_feature)
             item.setText(0, 'No cylinder feature found.')
             items.append(item)
         else:
-            item = QtGui.QTreeWidgetItem(cylinder_feature)
-            item.setText(0, 'Max diameter: '+str(results.max_diameter)+'mm')
-            items.append(item)
-            for af in results.advanced_faces:
+            for i,f in enumerate(results.foundFeatures):
                 item = QtGui.QTreeWidgetItem(cylinder_feature)
-                item.setText(0, af.stepLine)
+                item.setText(0, 'Cylinder feature #'+str(i+1))
                 items.append(item)
+                for af in f:
+                    item = QtGui.QTreeWidgetItem(cylinder_feature)
+                    item.setText(0, af)
+                    items.append(item)
         self.ui.treeWidget.addTopLevelItems(items)
         
     def checkMClicked(self):
@@ -130,12 +131,13 @@ class Main(QtGui.QWidget, Ui_Form):
                 for oe in iter(face.bounds).next().bound.edge_list:
                     eg =oe.edge_element.edge_geometry
                     if isinstance(eg, stepCode.circle):
+                        # Save the extremum circles center coordinates
                         self.stock.points.append(eg.position.location.coordinates)
                 self.stock.sd = face.face_geometry.radius *2
                 self.ui.stockSD.setText(self.ui.stockSD.text()+' '+str(self.stock.sd)+' mm')
                 break
 
-        self.ui.stockSL.setText(self.ui.stockSL.text()+' '+str(abs(self.stock.points[0][1]-self.stock.points[1][1]))+' mm')
+        self.ui.stockSL.setText(self.ui.stockSL.text()+' '+str(abs(self.stock.points[0][2]-self.stock.points[1][2]))+' mm')
         self.ui.stockViewer._display.EraseAll()
         self.drawStock(fili)
 
